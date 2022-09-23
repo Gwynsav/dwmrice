@@ -1,0 +1,2 @@
+# dwmrice
+Personal dwm dots.
