@@ -1,0 +1,62 @@
+#!/bin/dash
+# bat() {
+# 	ftc=$(upower -i `upower -e | grep 'BAT'`)
+# 	bat=${ftc%%%*} && bat=${bat##* }
+# 	stt=${ftc##*state:               } && stt=${stt%%g*}
+# 	icon=""
+# 	[ $bat -gt 20 ] && icon=""
+# 	[ $bat -gt 40 ] && icon=""
+# 	[ $bat -gt 60 ] && icon=""
+# 	[ $bat -gt 80 ] && icon=""
+# 	[ "$stt" = "char" ] || [ "$stt" = "fully-char" ] && icon=""
+# 	echo "$icon $bat%" 
+# }
+
+net() {
+	dvc=wlan0
+	ftc=$(iwctl station $dvc show)
+	net=${ftc##*Connected network     } && net=${net%% *}
+	stt=${ftc##*State                 } && stt=${stt%%d*}
+	icon=""
+	[ "$stt" = "connecte" ] || net="Disconnected"
+	echo "$icon $net" 
+}
+
+blu() {
+	stt=$(bluetoothctl show | grep "Powered:")
+	icon=" OFF"
+	[ "${stt##* }" = "yes" ] && icon=" ON" 
+	echo "$icon" 
+}
+
+vol() {
+	ftc=$(amixer sget Master)
+	vol=${ftc#*[} && vol=${vol%%%*}
+	ico=${ftc##*[} && ico=${ico%%]*}
+ 	icon=""
+	[ "$ico" = "off" ] && icon=""
+	echo "$icon $vol%"
+}
+
+# bri() {
+# 	bri=$(brightnessctl -l) && bri=${bri#*(} && bri=${bri%%%*}
+# 	icon=""
+# 	echo "$icon $bri%" 
+# }
+
+lng() {
+	lng=$(setxkbmap -query) && lng=${lng##* }
+	[ "$lng" = "us" ] && stt=" US" || stt=" ES"
+	echo "$stt" 
+}
+
+dte() {
+    echo $(date '+%A, %b %d %I:%M %p')
+}
+
+while :; do
+    xsetroot -name " $(lng) ^c#323949^| ^c#b3ffff^$(vol) ^c#323949^| ^c#bdd6f4^$(blu) ^c#aaf0c1^$(net) ^c#323949^| ^c#eadd94^$(dte) "
+	sleep 60.0
+done
+
+# ^c#363f43^| ^c#ffb29b^$(bri) ^c#ee6a70^$(bat)
