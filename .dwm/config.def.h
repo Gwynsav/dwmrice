@@ -124,6 +124,8 @@ static Key keys[] = {
 	{ NOMODK,                       XF86XK_AudioPlay,          spawn, SHCMD("sh ~/.dwm/scripts/binds/songPlay play") },
 	{ NOMODK,                       XF86XK_AudioNext,          spawn, SHCMD("sh ~/.dwm/scripts/binds/songPlay next") },
 	{ NOMODK,                       XF86XK_AudioPrev,          spawn, SHCMD("sh ~/.dwm/scripts/binds/songPlay prev") },
+	{ NOMODK,                       XF86XK_MonBrightnessUp,    spawn, SHCMD("sh ~/.dwm/scripts/binds/brightness.sh up") },
+	{ NOMODK,                       XF86XK_MonBrightnessDown,  spawn, SHCMD("sh ~/.dwm/scripts/binds/brightness.sh down") },
 	{ NOMODK,                       XK_Print,            			 spawn, SHCMD("maim -s | xclip -selection clipboard -t image/png") },
 };
 
