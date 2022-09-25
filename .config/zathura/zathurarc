@@ -1,0 +1,33 @@
+# Huge thanks to u/demusxd for making this config! (i just recolored everything to everforest :P)
+set default-bg                  "#040c16"
+set default-fg                  "#cce9ea"
+
+set statusbar-bg                "#323949"
+set statusbar-fg                "#cce9ea"
+
+set inputbar-bg                 "#040c16"
+set inputbar-fg                 "#cce9ea"
+
+set notification-bg             "#323949"
+set notification-fg             "#cce9ea"
+
+set notification-error-bg       "#040c16"
+set notification-error-fg       "#ff7377"
+
+set notification-warning-bg     "#323949"
+set notification-warning-fg     "#eadd94"
+
+set highlight-color             "#3d3e51"
+set highlight-active-color      "#aaf0c1"
+
+set completion-bg               "#323949"
+set completion-fg               "#cce9ea"
+
+set completion-highlight-bg     "#323949"
+set completion-highlight-fg     "#cce9ea"
+
+set recolor-lightcolor          "#040c16"
+set recolor-darkcolor           "#cce9ea"
+
+set recolor                     "true"
+set recolor-keephue             "false"

@@ -1,0 +1,6 @@
+#!/bin/sh
+# Refreshes the dwm bar
+
+bar=$(pstree -lp)
+bar=${bar##*bardata} && bar=${bar#*sleep(} && bar=${bar%%)*}
+kill $bar
