@@ -43,7 +43,9 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "[ ]",      monocle },
+	{ "|M|",      centeredmaster },
+	{ "TTT",      bstack },
 };
 
 /* key definitions */
@@ -60,7 +62,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nbg, "-nf", col_wht, "-sb", col_wht, "-sf", col_nbg, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nbg, "-nf", col_wht, "-sb", col_acc, "-sf", col_nbg, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include "movestack.c"
@@ -71,21 +73,30 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_o,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_equal,  incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_minus,  incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.02} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.02} },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
   { MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_j,   	 moveresize,     {.v = "0x 25y 0w 0h" } },
+	{ MODKEY|ControlMask,           XK_k,      moveresize,     {.v = "0x -25y 0w 0h" } },
+	{ MODKEY|ControlMask,           XK_h,   	 moveresize,     {.v = "-25x 0y 0w 0h" } },
+	{ MODKEY|ControlMask,           XK_l,  		 moveresize,     {.v = "25x 0y 0w 0h" } },
+	{ MODKEY|Mod1Mask, 							XK_j,   	 moveresize,     {.v = "0x 0y 0w 25h" } },
+	{ MODKEY|Mod1Mask, 							XK_k,      moveresize,     {.v = "0x 0y 0w -25h" } },
+	{ MODKEY|Mod1Mask, 							XK_l,  		 moveresize,     {.v = "0x 0y 25w 0h" } },
+	{ MODKEY|Mod1Mask, 							XK_h,   	 moveresize,     {.v = "0x 0y -25w 0h" } },
 	{ MODKEY,                       XK_Tab,    zoom,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ShiftMask,             XK_s,      setlayout,      {0} },
-	{ MODKEY,             					XK_s,      togglefloating, {0} },
-	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+	{ MODKEY,                       XK_F1,     setlayout,     {.v = &layouts[0]} },
+	{ MODKEY,                       XK_F2,     setlayout,     {.v = &layouts[3]} },
+	{ MODKEY,                       XK_F3,     setlayout,     {.v = &layouts[4]} },
+	{ MODKEY,                       XK_m,      setlayout,     {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_s,      togglealwaysontop, {0} },
+	{ MODKEY,					              XK_0,      setlayout,      		{0} },
+	{ MODKEY,             					XK_s,      togglefloating, 		{0} },
+	{ MODKEY,                       XK_f,      togglefullscr,  		{0} },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
@@ -97,12 +108,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_5,                      4)
 	TAGKEYS(                        XK_6,                      5)
 	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ControlMask,           XK_r,      quit,           {0} },
     // these are all mine
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("st -e ranger") },
-	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD("st -e vim") },
+	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD("st -e nvim") },
 	{ MODKEY,                       XK_Escape, spawn,          SHCMD("st -e htop") },
 	{ MODKEY,                       XK_b,      spawn,          SHCMD("sh ~/.dwm/scripts/binds/bluetooth.sh") },
 	{ MODKEY,                       XK_u,      spawn,          SHCMD("sh ~/.dwm/scripts/binds/language.sh") },
