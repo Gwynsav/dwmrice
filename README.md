@@ -40,7 +40,7 @@ I have also added the only 2 layouts that I consider to be legitimately useful.
   - xcb-proto, xcb-util, xcb-util-wm, xcb-util-keysyms, xcb-util-renderutil, xcb-util-image and libxcb. Depending on your distro, the names may vary slightly. 
   - You'll also need **make**, since it's used for compilation.
 - **dmenu** as an application launcher.
-- **alsa-utils**, **bluez-utils** **iwd**, **brightnessctl**, **playerctl**, **maim**, and **setxkbmap** for the keybindings and bar.
+- **alsa-utils**, **bluez-utils**, **iwd**, **brightnessctl**, **playerctl**, **maim**, and **setxkbmap** for the keybindings and bar.
 - **JetBrainsMono Nerd Font**, **FontAwesome** and **Sarasa Mono** for the fonts.
 - **dwm** is configured to use my **custom build of st** by default, make sure you install that first if you plan on using it, or change the term in the `.dwm/config.def.h` file before logging into the WM.
 ## The fun part
