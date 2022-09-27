@@ -13,7 +13,9 @@
 # }
 
 net() {
-	dvc=wlan0
+	dvc=$(iwctl device list)
+	dvc=${dvc%%:*} && dvc=${dvc% *} &&
+		dvc=${dvc##*-} && dvc=${dvc#* }
 	ftc=$(iwctl station $dvc show)
 	net=${ftc##*Connected network     } && net=${net%% *}
 	stt=${ftc##*State                 } && stt=${stt%%d*}
