@@ -4,15 +4,20 @@
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int gappih    = 8;       /* horiz inner gap between windows */
+static const unsigned int gappiv    = 8;       /* vert inner gap between windows */
+static const unsigned int gappoh    = 16;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 16;       /* vert outer gap between windows and screen edge */
+static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
+static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=9", "FontAwesome:size=9" };
 static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=9";
-static const char col_nbg[]       = "#040c16";
-static const char col_blk[]       = "#3d3e51";
-static const char col_gry[]       = "#323949";
-static const char col_wht[]       = "#cce9ea";
-static const char col_acc[]       = "#aaf0c1";
+static const char col_nbg[]       = "#002b36";
+static const char col_blk[]       = "#073642";
+static const char col_gry[]       = "#586e75";
+static const char col_wht[]       = "#839496";
+static const char col_acc[]       = "#b58900";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_wht, col_nbg, col_nbg },
@@ -33,9 +38,12 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.54; /* factor of master area size [0.05..0.95] */ static const int nmaster     = 1;    /* number of clients in master area */
+static const float mfact     = 0.54; /* factor of master area size [0.05..0.95] */
+static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+
+#include "vanitygaps.c"
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -60,7 +68,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nbg, "-nf", col_wht, "-sb", col_acc, "-sf", col_nbg, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_nbg, "-nf", col_wht, "-sb", col_acc, "-sf", col_nbg, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include "movestack.c"
